@@ -10,7 +10,6 @@ class Search extends React.Component{
   }
 
   handleSubmit = e => {
-    //console.log('runninintttt')
     e.preventDefault();
     this.props.history.push(this.state.searchText)
     this.props.onSearch(this.state.searchText);
@@ -20,7 +19,6 @@ class Search extends React.Component{
   render(){
     return(
       <React.Fragment>
-       
         <form className="search-form" onSubmit={this.handleSubmit}>
         <input type="search" onChange={this.onSearchChange} name="search" placeholder="Search" required/>
         <button type="submit" className="search-button">
@@ -29,15 +27,12 @@ class Search extends React.Component{
             <path d="M0 0h24v24H0z" fill="none"/>
           </svg>
         </button>
-      
       </form>
-      
       <nav className="main-nav">
       <ul>
       <li> <NavLink to='cats' onClick={()=>this.props.onSearch('cats')}>Cats</NavLink></li>
         <li>  <NavLink to='dogs' onClick={()=>this.props.onSearch('dogs')}>Dogs</NavLink></li>
         <li>  <NavLink to='computers'onClick={()=>this.props.onSearch('computers')}>Computers</NavLink></li>
-
     </ul>
     </nav>
     </React.Fragment>
