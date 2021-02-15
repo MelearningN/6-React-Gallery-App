@@ -10,7 +10,7 @@ class Search extends React.Component{
   }
 
   handleSubmit = e => {
-    console.log('runninintttt')
+    //console.log('runninintttt')
     e.preventDefault();
     this.props.history.push(this.state.searchText)
     this.props.onSearch(this.state.searchText);
@@ -37,9 +37,7 @@ class Search extends React.Component{
       <li> <NavLink to='cats' onClick={()=>this.props.onSearch('cats')}>Cats</NavLink></li>
         <li>  <NavLink to='dogs' onClick={()=>this.props.onSearch('dogs')}>Dogs</NavLink></li>
         <li>  <NavLink to='computers'onClick={()=>this.props.onSearch('computers')}>Computers</NavLink></li>
-     
-    
-    
+
     </ul>
     </nav>
     </React.Fragment>
