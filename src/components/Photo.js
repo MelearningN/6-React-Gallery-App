@@ -1,12 +1,8 @@
 import React from 'react';
 
-const Photo=(props)=>{
-    return(
-
+const Photo=({photos})=>
         <li>
-            <img src={`https://live.staticflickr.com/${props.photos.server}/${props.photos.id}_${props.photos.secret}.jpg`} alt="" />
-           </li>
-    );
-}
+         <img src={`https://live.staticflickr.com/${photos.server}/${photos.id}_${photos.secret}.jpg`} alt="" />
+        </li>
 
 export default Photo

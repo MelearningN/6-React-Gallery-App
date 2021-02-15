@@ -7,21 +7,15 @@ import NotFound from './components/Not-found';
 class App extends React.Component {
     state = {
         photo: {},
-        query: '',
+        query: 'cars',
         intialStage: true
     }
 
     componentWillMount() {
-       /*  if(this.state.intialStage){
-            this.setState({intialStage:false})
-        } */
-        this.fetchPhotos()
+     this.fetchPhotos(this.state.query)
     }
 
-    fetchPhotos = (query = 'places', routerProps) => {
-        /* if (routerProps && routerProps.location.pathname !== '/') {
-            query = routerProps.match.params.query
-        } */
+    fetchPhotos = (query) => {
         this.setState({query})
         fetch(`https://www.flickr.com/services/rest/?method=flickr.photos.search&per_page=24&api_key=e69353759d479fabc5cd0eef6c311757&tags=${query}&format=json&nojsoncallback=1`).then(response => response.json()).then(responseData => {
             this.setState({photo: responseData.photos});
@@ -31,45 +25,38 @@ class App extends React.Component {
     }
 
     handleRouter = (routerProps) => {
-        console.log('ye', routerProps)
-        if (routerProps.match.params.query !== undefined && routerProps.match.params.query !== this.state.query) { // props.fetchApi(props.routerProps.match.params.query)
-            this.fetchPhotos(routerProps.match.params.query, routerProps)
+        let routerQuery=routerProps.match.params.query
+        if (routerQuery !== undefined && routerQuery !== this.state.query) {
+            this.fetchPhotos(routerQuery)
         }
     }
 
     render() {
-        const fetchPic = Object.keys(this.state.photo).length !== 0
+        const isPhotoAvailable = Object.keys(this.state.photo).length !== 0
         const validResults = this.state.photo.photo && this.state.photo.photo.length > 0
 
         return (
             <BrowserRouter>
-                <Search onSearch={
-                    this.fetchPhotos
-                }/>
-                <a href="/">
-                    <span>&larr;</span>
-                    Home</a>
+                <Search onSearch={this.fetchPhotos}/>
+                <a href="/"><span>&larr;</span>Home</a>
                 <Switch>
-                    <Route exact path="/" render= {routerProps =>                                                                                                      fetchPic &&<PhotoContainer 
-                                                    routerProps={routerProps} 
-                                                    photos = {this.state.photo}
-                                                    query={this.state.query}
-                                                    />
+                    <Route exact path="/" 
+                        render= {routerProps =>  
+                                 isPhotoAvailable &&
+                                 <PhotoContainer 
+                                 routerProps={routerProps} 
+                                 photos = {this.state.photo}
+                                 query={this.state.query}
+                                />
                      }/>
                     <Route path="/:query"
-                        render={
-                            (routerProps) => validResults ? (
+                        render={ routerProps => 
+                                validResults ?
                                 <PhotoContainer routerProps={routerProps}
-                                    photos={
-                                        this.state.photo
-                                    }
-                                    query={
-                                        this.state.query
-                                    }
-                                    handleRouter={
-                                        this.handleRouter(routerProps)
-                                    }/>
-                            ) : <NotFound/>
+                                    photos={this.state.photo}
+                                    query={this.state.query}
+                                    handleRouter={this.handleRouter(routerProps)}/>
+                                : <NotFound/>
                         }/>
                 </Switch>
             </BrowserRouter>
