@@ -9,6 +9,12 @@ Do the following once node and npm is installed and 7-React Gallery App repo has
 
 2. Run `npm install`
 
+3. Go to https://www.flickr.com/services/apps/create/apply/ and apply for non-commercial api key
+
+4. Add Config.js under src and add the apiKey 
+   `const apiKey = 'YOUR API KEY';`
+   `export default apiKey;`
+
 
 ====================================
 ### **Running locally**
