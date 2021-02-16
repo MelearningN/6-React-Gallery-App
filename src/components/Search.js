@@ -1,9 +1,10 @@
 import React from 'react';
-import { Route, NavLink, Link,withRouter} from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 class Search extends React.Component{
     
   state = {
-    searchText: ''
+    searchText: '',
+    searchObjects: ['BMW', 'Audi', 'Mercedez']
   }
   onSearchChange = e => {
     this.setState({ searchText: e.target.value });
@@ -11,7 +12,6 @@ class Search extends React.Component{
 
   handleSubmit = e => {
     e.preventDefault();
-    this.props.history.push(this.state.searchText)
     this.props.onSearch(this.state.searchText);
     e.currentTarget.reset();
   }
@@ -28,13 +28,7 @@ class Search extends React.Component{
           </svg>
          </button>
         </form>
-      <nav className="main-nav">
-       <ul>
-        <li> <NavLink to='cats' onClick={()=>this.props.onSearch('cats')}>Cats</NavLink></li>
-        <li>  <NavLink to='dogs' onClick={()=>this.props.onSearch('dogs')}>Dogs</NavLink></li>
-        <li>  <NavLink to='computers'onClick={()=>this.props.onSearch('computers')}>Computers</NavLink></li>
-       </ul>
-      </nav>
+       
     </React.Fragment>
     );
     }

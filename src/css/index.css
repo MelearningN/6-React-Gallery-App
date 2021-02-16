@@ -2,6 +2,12 @@ body {
     text-align: center;
     font-family: 'Open Sans', sans-serif;
     color: #3f4850;
+    background-color: wheat;
+  }
+
+  @keyframes slidein {
+    from { transform: scaleX(0); }
+    to   { transform: scaleY(1); }
   }
   
   h2 {
